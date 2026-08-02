@@ -29,9 +29,10 @@ public class AuthController {
     public ResponseEntity<LoginResponseDTO> signIn(@RequestBody @Validated AuthDTO data) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.email(), data.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);
-        var token = tokenService.generateToken((User) auth.getPrincipal());
+        var user = (User) auth.getPrincipal();
+        var token = tokenService.generateToken(user);
 
-        return ResponseEntity.ok(new LoginResponseDTO(token));
+        return ResponseEntity.ok(new LoginResponseDTO(token, user.getUser_id()));
     }
 
     @PostMapping("/signup")

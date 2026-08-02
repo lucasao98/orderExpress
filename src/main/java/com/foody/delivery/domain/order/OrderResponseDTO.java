@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public record OrderResponseDTO(
+        String orderId,
         String userName,
         String userEmail,
         String addressStreet,
@@ -15,6 +16,7 @@ public record OrderResponseDTO(
 ) {
     public OrderResponseDTO(Order order, List<OrderItem> orderItems) {
         this(
+                order.getOrder_id(),
                 order.getUser().getName(),
                 order.getUser().getEmail(),
                 order.getAddress().getStreet(),

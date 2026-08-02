@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import java.security.SecureRandom;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -22,12 +23,17 @@ public class Order {
     private String order_id;
     private OrderStatus order_status;
     private BigDecimal total_price;
+    private String order_tracking_code;
+
+    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    private static final SecureRandom RANDOM = new SecureRandom();
 
     public Order(OrderStatus order_status, BigDecimal total_price, User user, Address address) {
         this.order_status = order_status;
         this.total_price = total_price;
         this.user = user;
         this.address = address;
+        generateOrderTrackingCode();
     }
 
     @ManyToOne
@@ -42,6 +48,18 @@ public class Order {
     public void generateId() {
         if (this.order_id == null) {
             this.order_id = UUID.randomUUID().toString();
+        }
+    }
+
+    public void generateOrderTrackingCode() {
+        if (this.order_tracking_code == null) {
+            StringBuilder code = new StringBuilder(6);
+
+            for (int i = 0; i < 6; i++) {
+                code.append(CHARACTERS.charAt(RANDOM.nextInt(CHARACTERS.length())));
+            }
+
+            this.order_tracking_code = code.toString();
         }
     }
 

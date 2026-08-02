@@ -75,4 +75,14 @@ public class UserService {
 
         return true;
     }
+
+    public User getUser(String user_id) throws Exception {
+        Optional<User> foundUser = this.userRepository.findById(user_id);
+
+        if(foundUser.isEmpty()) {
+            throw new Exception("User not found");
+        }
+
+        return foundUser.get();
+    }
 }

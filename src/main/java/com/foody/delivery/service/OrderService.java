@@ -41,14 +41,12 @@ public class OrderService {
                 .toList();
     }
 
-    public List<OrderResponseDTO> getUserOrders(String user_id) throws Exception {
-        Optional <User> foundUser = this.userRepository.findById(user_id);
+    public List<OrderResponseDTO> getUserOrders(String user_id) {
+        List<Order> orders = this.orderRepository.findByUserId(user_id);
 
-        if(foundUser.isEmpty()){
-            throw new Exception("User not found");
+        if (orders.isEmpty()) {
+            return Collections.emptyList();
         }
-
-        List<Order> orders = (List<Order>) this.orderRepository.findAll();
 
         return orders.stream()
                 .map(order -> {
@@ -60,7 +58,7 @@ public class OrderService {
 
     public boolean createOrder(CreateOrderDTO order) throws Exception {
         Optional <User> foundUser = this.userRepository.findById(order.user_id());
-        Optional < Address> foundAddress = this.addressRepository.findById(order.address_id());
+        Optional <Address> foundAddress = this.addressRepository.findById(order.address_id());
 
         String orderIdCreated = "";
 

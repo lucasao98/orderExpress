@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS orders (
     address_id TEXT NOT NULL,
     order_status INTEGER NOT NULL,
     total_price DECIMAL(10,2) NOT NULL DEFAULT 0,
+    order_tracking_code VARCHAR(6) NOT NULL,
     created_at TIMESTAMP DEFAULT (CURRENT_TIMESTAMP) NOT NULL,
     updated_at TIMESTAMP DEFAULT (CURRENT_TIMESTAMP) NOT NULL,
 
