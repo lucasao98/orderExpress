@@ -12,6 +12,7 @@ public record OrderResponseDTO(
         String addressCity,
         OrderStatus orderStatus,
         BigDecimal totalPrice,
+        String orderTrackingCode,
         List<OrderItemResponseDTO> items
 ) {
     public OrderResponseDTO(Order order, List<OrderItem> orderItems) {
@@ -24,6 +25,7 @@ public record OrderResponseDTO(
                 order.getAddress().getCity(),
                 order.getOrder_status(),
                 order.getTotal_price(),
+                order.getOrder_tracking_code(),
                 orderItems.stream()
                         .map(OrderItemResponseDTO::new)
                         .toList()

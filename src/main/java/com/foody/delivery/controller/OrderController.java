@@ -55,6 +55,15 @@ public class OrderController {
         }
     }
 
+    @GetMapping("/tracking/{orderCode}")
+    public OrderResponseDTO tracking(@PathVariable("orderCode") String orderCode) {
+        try {
+            return this.orderService.getOrderByCode(orderCode);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @PatchMapping("/{id}")
     public ResponseEntity updateStatus(@PathVariable String id, @RequestBody UpdateStatusDTO order_status) {
         try {

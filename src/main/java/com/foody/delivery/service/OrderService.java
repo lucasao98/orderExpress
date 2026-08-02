@@ -163,4 +163,17 @@ public class OrderService {
 
         return true;
     }
+
+    public OrderResponseDTO getOrderByCode(String orderTrackingCode) throws Exception {
+        Optional<Order> foundOrder = this.orderRepository.findByOrderTrackingCode(orderTrackingCode);
+
+
+        if (foundOrder.isEmpty()) {
+            throw new Exception("Order not found");
+        }
+
+        List<OrderItem> items = this.orderItemRepository.findByOrderId(foundOrder.get().getOrder_id());
+
+        return new OrderResponseDTO(foundOrder.get(), items);
+    }
 }
