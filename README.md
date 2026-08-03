@@ -4,11 +4,12 @@ API REST para um sistema de delivery de comida, construída com **Spring Boot** 
 
 ## Tecnologias
 
-- Java
+- Java 21
 - Spring Boot
 - Spring Data JPA
 - SQLite
 - Lombok
+- Spring Security
 
 ## Estrutura de domínio
 
