@@ -107,11 +107,14 @@ public class OrderService {
                         BigDecimal unitPrice = item.getPrice();
                         BigDecimal subtotal = unitPrice.multiply(BigDecimal.valueOf(quantity));
 
+                        item.setQuantity_available(item.getQuantity_available() - quantity);
+
                         return new OrderItem(quantity, unitPrice, subtotal, orderCreated, item);
                     })
                     .toList();
 
             this.orderItemRepository.saveAll(orderItems);
+            this.itemRepository.saveAll(foundItems);
 
             return true;
         } catch (Exception e) {
